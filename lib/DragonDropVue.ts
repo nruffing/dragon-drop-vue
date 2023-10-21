@@ -1,4 +1,5 @@
 import { type App, type Plugin } from 'vue'
+import { addClasses, removeClasses } from './htmlHelpers'
 
 const dragClass = 'ddv-draggable'
 const draggingClass = 'ddv-dragging'
@@ -15,6 +16,7 @@ export default {
     app.directive('drag', {
         beforeMount: (el, binding, vnode, prevVnode) => {
             const domEl = el as HTMLElement
+            const dragOpts = binding.value as DragonDropVueDragOptions
             
             // add css classes
             addClasses(domEl, [dragClass, opts.dragClass])
@@ -23,16 +25,17 @@ export default {
             domEl.setAttribute('draggable', 'true')
 
             // wire drag events
-            domEl.addEventListener('dragstart', (ev) => onDragStart(ev, opts))
-            domEl.addEventListener('dragend', (ev) => onDragEnd(ev, opts))
+            domEl.addEventListener('dragstart', (ev) => onDragStart(ev, dragOpts, opts))
+            domEl.addEventListener('dragend', (ev) => onDragEnd(ev, dragOpts, opts))
             
         },
         beforeUnmount: (el, binding, vnode, prevVnode) => {
           const domEl = el as HTMLElement
+          const dragOpts = binding.value as DragonDropVueDragOptions
 
           // remove drag events
-          domEl.removeEventListener('dragstart', (ev) => onDragStart(ev, opts))
-          domEl.removeEventListener('dragend', (ev) => onDragEnd(ev, opts))
+          domEl.removeEventListener('dragstart', (ev) => onDragStart(ev, dragOpts, opts))
+          domEl.removeEventListener('dragend', (ev) => onDragEnd(ev, dragOpts, opts))
         },
     })
   },
@@ -43,28 +46,36 @@ export interface DragonDropVueOptions {
     draggingClass: string | undefined,
 }
 
-function onDragStart(event: DragEvent, opts: DragonDropVueOptions) {
+export interface DragonDropVueDragOptions<T = any> {
+  dragData: T | undefined,
+  onDragStart?: (domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<T>, options: DragonDropVueOptions) => void,
+  onDragEnd?: (domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<T>, options: DragonDropVueOptions) => void,
+}
+
+
+/*
+  DRAG HANDLERS
+*/
+function onDragStart(event: DragEvent, dragOpts: DragonDropVueDragOptions, opts: DragonDropVueOptions) {
   const domEl = event.target as HTMLElement
 
   // add css classes
   addClasses(domEl, [draggingClass, opts.draggingClass])
+
+  // call consumer-defined handler
+  if (dragOpts.onDragStart) {
+    dragOpts.onDragStart(domEl, event, dragOpts, opts)
+  }
 }
 
-function onDragEnd(event: DragEvent, opts: DragonDropVueOptions) {
+function onDragEnd(event: DragEvent, dragOpts: DragonDropVueDragOptions, opts: DragonDropVueOptions) {
   const domEl = event.target as HTMLElement
 
   // add css classes
   removeClasses(domEl, [draggingClass, opts.draggingClass])
-}
 
-function addClasses(domEl: HTMLElement, classes: (string | undefined)[]) {
-  for (const className of classes) {
-    if (className) domEl.classList.add(className)
-  }
-}
-
-function removeClasses(domEl: HTMLElement, classes: (string | undefined)[]) {
-  for (const className of classes) {
-    if (className) domEl.classList.remove(className)
+  // call consumer-defined handler
+  if (dragOpts.onDragEnd) {
+    dragOpts.onDragEnd(domEl, event, dragOpts, opts)
   }
 }

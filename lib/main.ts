@@ -1,4 +1,4 @@
 import DragonDropVue from './DragonDropVue'
-import { type DragonDropVueOptions } from './DragonDropVue'
+import type {  DragonDropVueOptions, DragonDropVueDragOptions } from './DragonDropVue'
 
-export { DragonDropVue, type DragonDropVueOptions }
+export { DragonDropVue, type DragonDropVueOptions, type DragonDropVueDragOptions }
