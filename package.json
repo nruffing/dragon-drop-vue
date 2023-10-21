@@ -1,0 +1,79 @@
+{
+  "name": "dragon-drop-vue",
+  "version": "0.0.1",
+  "description": "Customizable native Vue3 drag-n-drop",
+  "license": "MIT",
+  "author": {
+    "name": "Nicholas Ruffing",
+    "email": "nicholasruffing70@gmail.com"
+  },
+  "homepage": "https://github.com/nruffing/dragon-drop-vue",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nruffing/dragon-drop-vue.git"
+  },
+  "bugs": "https://github.com/nruffing/dragon-drop-vue/issues",
+  "keywords": [
+    "vue",
+    "vue3"
+  ],
+  "type": "module",
+  "private": false,
+  "files": [
+    "dist/*",
+    "lib/**/*",
+    "LICENSE",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/main.d.ts",
+      "import": "./dist/dragon-drop-vue.js",
+      "require": "./dist/dragon-drop-vue.umd.cjs"
+    },
+    "./dist/main.css": {
+      "import": "./lib/styles/DragonDropVue.css",
+      "require": "./lib/styles/DragonDropVue.css"
+    }
+  },
+  "types": "./dist/types/main.d.ts",
+  "main": "dist/dragon-drop-vue.umd.js",
+  "module": "dist/dragon-drop-vue.mjs",
+  "browser": "dist/dragon-drop-vue.umd.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check build-types build-only",
+    "build-types": "vue-tsc --declaration --emitDeclarationOnly",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit",
+    "format": "npx prettier --write \"./**/*.{ts,json,vue,css}\"",
+    "upgrade-all": "ncu --upgrade"
+  },
+  "peerDependencies": {
+    "vue": ">=3.2.0"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "devDependencies": {
+    "@babel/types": "^7.23.0",
+    "@tsconfig/node18": "^18.2.2",
+    "@types/debounce": "^1.2.3",
+    "@types/node": "^20.8.7",
+    "@vitejs/plugin-vue": "^4.4.0",
+    "@vue/tsconfig": "^0.4.0",
+    "npm-check-updates": "^16.14.6",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.0.3",
+    "tslib": "^2.6.2",
+    "typescript": "~5.2.2",
+    "vite": "^4.5.0",
+    "vue": "^3.3.6",
+    "vue-router": "^4.2.5",
+    "vue-tsc": "^1.8.19"
+  },
+  "dependencies": {
+    "debounce": "^1.2.1"
+  }
+}
