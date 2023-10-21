@@ -1,13 +1,16 @@
-
 export interface DragonDropVueOptions {
-  dragClass: string | undefined,
-  draggingClass: string | undefined,
+  dragClass: string | undefined
+  draggingClass: string | undefined
+  dropClass: string | undefined
+  dragOverClass: string | undefined
 }
 
 export interface DragonDropVueDragOptions<T = any> {
-dragData: T | undefined,
-onDragStart?: (domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<T>, options: DragonDropVueOptions) => void,
-onDragEnd?: (domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<T>, options: DragonDropVueOptions) => void,
-// TODO: drag image
-// TODO: drop effect
+  dragData: T | undefined
+  onDragStart?: (domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<T>, options: DragonDropVueOptions) => void
+  onDragEnd?: (domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<T>, options: DragonDropVueOptions) => void
+  onDragOver?: (domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<T>, options: DragonDropVueOptions) => void
+  onDrop?: (domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<T>, options: DragonDropVueOptions) => void
+  // TODO: drag image
+  // TODO: drop effect
 }
