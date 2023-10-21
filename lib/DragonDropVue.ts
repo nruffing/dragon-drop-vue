@@ -2,7 +2,7 @@ import { type App, type Plugin } from 'vue'
 import { addClasses } from './htmlHelpers'
 import type { DragonDropVueDragOptions, DragonDropVueOptions } from './options'
 import constants from './constants'
-import { onDragEnd, onDragStart } from './eventHandlers'
+import { onDragEnd, onDragOver, onDragStart, onDrop } from './eventHandlers'
 
 export default {
   install: (app: App, options: DragonDropVueOptions) => {
@@ -48,12 +48,16 @@ export default {
         addClasses(domEl, [constants.dropClass, opts.dropClass])
 
         // wire drag events
+        domEl.addEventListener('dragover', ev => onDragOver(ev, dragOpts, opts))
+        domEl.addEventListener('drop', ev => onDrop(ev, dragOpts, opts))
       },
       beforeUnmount: (el, binding, vnode, prevVnode) => {
         const domEl = el as HTMLElement
         const dragOpts = binding.value as DragonDropVueDragOptions
 
-        // wire drag events
+        // remove drag events
+        domEl.removeEventListener('dragover', ev => onDragOver(ev, dragOpts, opts))
+        domEl.removeEventListener('drop', ev => onDrop(ev, dragOpts, opts))
       },
     })
   },
