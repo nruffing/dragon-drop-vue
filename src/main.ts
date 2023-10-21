@@ -2,7 +2,10 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import DragonDropVue from '../lib/DragonDropVue'
+import { type DragonDropVueOptions } from '../lib/options'
 
-import '../lib/styles/DragonDropVue.css'
+const dragonDropOptions = {
 
-createApp(App).use(router).use(DragonDropVue, {}).mount('#app')
+} as DragonDropVueOptions
+
+createApp(App).use(router).use(DragonDropVue, dragonDropOptions).mount('#app')
