@@ -2,6 +2,6 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
-import '../lib/styles/DataGridVueDark.css'
+import '../lib/styles/DragonDropVue.css'
 
 createApp(App).use(router).mount('#app')
