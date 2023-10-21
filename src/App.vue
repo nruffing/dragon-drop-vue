@@ -18,6 +18,7 @@ export default defineComponent({
   --base-900: #111111;
   --base-800: #222222;
   --base-700: #3a3a3a;
+  --base-600: #555555;
   --base-100: #eeeeee;
 }
 
@@ -56,7 +57,8 @@ nav {
 main {
   padding: 20px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 60px;
   height: calc(100% - 40px);
 }

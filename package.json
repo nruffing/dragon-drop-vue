@@ -14,6 +14,14 @@
   },
   "bugs": "https://github.com/nruffing/dragon-drop-vue/issues",
   "keywords": [
+    "sortable",
+    "reorder",
+    "drag",
+    "dragging",
+    "draggable",
+    "drop",
+    "drag&drop",
+    "drag-n-drop",
     "vue",
     "vue3"
   ],

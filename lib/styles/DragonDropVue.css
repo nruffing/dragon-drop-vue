@@ -6,3 +6,11 @@
   --ddv-opaque-3: rgba(255, 255, 255, 0.2);
   --ddv-accent: rgb(255, 166, 0);
 }
+
+.ddv-draggable {
+  cursor: grab;
+}
+
+.ddv-dragging {
+  cursor: grabbing;
+}
