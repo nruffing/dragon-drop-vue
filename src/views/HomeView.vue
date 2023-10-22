@@ -1,8 +1,15 @@
 <template>
   <main>
+    <label>
+      <input
+        type="checkbox"
+        v-model="canDrag"
+      />
+      Can Drag
+    </label>
     <template v-for="column in columns">
-      <div v-drop="{ dragData: column, onDragEnter: onDragEnter, onDrop: onDrop }"></div>
-      <div v-drag="{ dragData: column, dragImage: dragImage, onDragStart: onDragStart }">{{ column }}</div>
+      <div v-drop="canDrag ? { dragData: column, onDragEnter: onDragEnter, onDrop: onDrop } : false"></div>
+      <div v-drag="canDrag ? { dragData: column, dragImage: dragImage, onDragStart: onDragStart } : false">{{ column }}</div>
     </template>
   </main>
 </template>
@@ -17,6 +24,7 @@ export default defineComponent({
     return {
       columns: [0, 1, 2, 3, 4, 5, 6],
       dragging: undefined as number | undefined,
+      canDrag: true,
     }
   },
   computed: {

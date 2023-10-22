@@ -11,8 +11,9 @@ ________________________________________
     * allow false to turn off drag and drop directives
 * v0.0.3
     * remove console.log
-* vNext
+* v0.0.4
     * export DropEffect
+    * react to options changes that can turn draggable on/off
 
 ________________________________________
 
