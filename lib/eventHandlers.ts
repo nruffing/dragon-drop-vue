@@ -21,6 +21,10 @@ export function onDragStart(event: DragEvent, dragOpts: DragonDropVueDragOptions
   addClasses(domEl, [constants.draggingClass, opts.draggingClass])
 
   if (event.dataTransfer) {
+    if (dragOpts.dragData) {
+      event.dataTransfer.setData('application/json', JSON.stringify(dragOpts.dragData))
+    }
+
     if (dragOpts.dropEffect) {
       event.dataTransfer.effectAllowed = dragOpts.dropEffect
     }

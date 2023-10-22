@@ -1,21 +1,22 @@
 <template>
   <main>
     <template v-for="column in columns">
-      <div v-drag="{ dragImage: dragImage }">{{ column }}</div>
-      <div v-drop></div>
+      <div v-drop="{ dragData: column, onDragEnter: onDragEnter, onDrop: onDrop }"></div>
+      <div v-drag="{ dragData: column, dragImage: dragImage, onDragStart: onDragStart }">{{ column }}</div>
     </template>
   </main>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { type DragonDropVueDragImageOptions } from '../../lib/main'
+import type { DragonDropVueDragImageOptions, DragonDropVueDragOptions, DragonDropVueOptions } from '../../lib/main'
 
 export default defineComponent({
   name: 'HomeView',
   data() {
     return {
-      columns: [1, 2, 3, 4, 5, 6],
+      columns: [0, 1, 2, 3, 4, 5, 6],
+      dragging: undefined as number | undefined,
     }
   },
   computed: {
@@ -27,6 +28,27 @@ export default defineComponent({
         xOffset: 30,
         yOffset: 0,
       }
+    },
+  },
+  methods: {
+    onDragStart(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<number>, options: DragonDropVueOptions) {
+      this.dragging = dragOptions.dragData
+    },
+    onDragEnter(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<number>, options: DragonDropVueOptions) {
+      var dragIndex = this.dragging ?? 0
+      var dropIndex = dragOptions.dragData ?? 0
+      return dragIndex !== dropIndex
+    },
+    onDrop(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<number>, options: DragonDropVueOptions) {
+      var dragIndex = this.dragging ?? 0
+      var dropIndex = dragOptions.dragData ?? 0
+
+      if (dropIndex > this.columns.length - 1) {
+        return
+      }
+
+      const [column] = this.columns.splice(dragIndex, 1)
+      this.columns.splice(dropIndex, 0, column)
     },
   },
 })
