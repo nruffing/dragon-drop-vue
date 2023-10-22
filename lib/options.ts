@@ -1,3 +1,5 @@
+import type { DropEffect } from './htmlHelpers'
+
 export interface DragonDropVueOptions {
   debugLog: boolean | undefined
   dragClass: string | undefined
@@ -39,6 +41,12 @@ export interface DragonDropVueDragOptions<T = any> {
     options: DragonDropVueOptions,
   ) => boolean | undefined
   onDrop?: (domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<T>, options: DragonDropVueOptions) => boolean | undefined
-  // TODO: drag image
-  // TODO: drop effect
+  dropEffect: DropEffect | undefined
+  dragImage: DragonDropVueDragImageOptions | undefined
+}
+
+export interface DragonDropVueDragImageOptions {
+  image: Element
+  xOffset: number
+  yOffset: number
 }

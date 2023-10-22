@@ -19,6 +19,16 @@ export function onDragStart(event: DragEvent, dragOpts: DragonDropVueDragOptions
 
   // add css classes
   addClasses(domEl, [constants.draggingClass, opts.draggingClass])
+
+  if (event.dataTransfer) {
+    if (dragOpts.dropEffect) {
+      event.dataTransfer.effectAllowed = dragOpts.dropEffect
+    }
+
+    if (dragOpts.dragImage) {
+      event.dataTransfer.setDragImage(dragOpts.dragImage.image, dragOpts.dragImage.xOffset, dragOpts.dragImage.yOffset)
+    }
+  }
 }
 
 export function onDragEnd(event: DragEvent, dragOpts: DragonDropVueDragOptions, opts: DragonDropVueOptions): boolean | undefined {
@@ -52,6 +62,10 @@ export function onDragOver(event: DragEvent, dragOpts: DragonDropVueDragOptions,
       return false
     }
   }
+
+  if (dragOpts.dropEffect && event.dataTransfer) {
+    event.dataTransfer.dropEffect = dragOpts.dropEffect
+  }
 }
 
 export function onDragEnter(event: DragEvent, dragOpts: DragonDropVueDragOptions, opts: DragonDropVueOptions): boolean | undefined {
@@ -66,6 +80,10 @@ export function onDragEnter(event: DragEvent, dragOpts: DragonDropVueDragOptions
       log({ eventName: 'onDragEnter | terminated', event, domEl, dragOpts, opts })
       return false
     }
+  }
+
+  if (dragOpts.dropEffect && event.dataTransfer) {
+    event.dataTransfer.dropEffect = dragOpts.dropEffect
   }
 
   // add css classes

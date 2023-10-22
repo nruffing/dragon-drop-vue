@@ -24,3 +24,10 @@ export function removeEventHandler(domEl: HTMLElement, eventName: string) {
     domEl.removeEventListener(eventName, listener)
   }
 }
+
+export enum DropEffect {
+  none = 'none',
+  copy = 'copy',
+  link = 'link',
+  move = 'move',
+}

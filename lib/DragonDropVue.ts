@@ -14,7 +14,8 @@ export default {
     app.directive('drag', {
       beforeMount: (el, binding, vnode, prevVnode) => {
         const domEl = el as HTMLElement
-        const dragOpts = binding.value ?? ({} as DragonDropVueDragOptions)
+        console.log(binding.value)
+        const dragOpts = (binding.value ?? {}) as DragonDropVueDragOptions
 
         // add css classes
         addClasses(domEl, [constants.dragClass, opts.dragClass])
@@ -41,7 +42,7 @@ export default {
     app.directive('drop', {
       beforeMount: (el, binding, vnode, prevVnode) => {
         const domEl = el as HTMLElement
-        const dragOpts = binding.value ?? ({} as DragonDropVueDragOptions)
+        const dragOpts = (binding.value ?? {}) as DragonDropVueDragOptions
 
         // add css classes
         addClasses(domEl, [constants.dropClass, opts.dropClass])
