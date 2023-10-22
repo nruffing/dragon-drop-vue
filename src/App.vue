@@ -15,11 +15,21 @@ export default defineComponent({
 
 <style>
 :root {
-  --base-900: #111111;
-  --base-800: #222222;
-  --base-700: #3a3a3a;
+  --base-900: #222222;
+  --base-800: #333333;
+  --base-700: #444444;
   --base-600: #555555;
-  --base-100: #eeeeee;
+  --base-500: #666666;
+  --base-300: #aaaaaa;
+  --base-200: #bbbbbb;
+  --base-100: #dddddd;
+  --base-000: #ffffff;
+
+  --primary-600: #ff3300;
+  --primary-400: #ff7b00;
+  --primary-200: #ff9d41;
+
+  font-size: 10px;
 }
 
 body,
@@ -49,6 +59,7 @@ nav {
   gap: 15px;
   background-color: var(--base-800);
   padding: 0.5rem;
+  font-size: 1.5rem;
   align-items: center;
   border-right: var(--base-900) solid 1px;
   box-shadow: -3px 0px 20px 0 rgba(255, 255, 255, 0.2);

@@ -5,5 +5,6 @@ export default {
   draggingClass: 'ddv-dragging',
   dropClass: 'ddv-dropzone',
   dragOverClass: 'ddv-dragging-over',
+  eventPropNamePrefix: 'ddv-event-',
   defaultOptions: {} as DragonDropVueOptions,
 }

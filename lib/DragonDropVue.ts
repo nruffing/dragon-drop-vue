@@ -1,8 +1,8 @@
 import { type App, type Plugin } from 'vue'
-import { addClasses } from './htmlHelpers'
+import { addClasses, addEventHandler, removeEventHandler } from './htmlHelpers'
 import type { DragonDropVueDragOptions, DragonDropVueOptions } from './options'
 import constants from './constants'
-import { onDragEnd, onDragOver, onDragStart, onDrop } from './eventHandlers'
+import { onDragEnd, onDragEnter, onDragLeave, onDragOver, onDragStart, onDrop } from './eventHandlers'
 
 export default {
   install: (app: App, options: DragonDropVueOptions) => {
@@ -14,7 +14,7 @@ export default {
     app.directive('drag', {
       beforeMount: (el, binding, vnode, prevVnode) => {
         const domEl = el as HTMLElement
-        const dragOpts = binding.value as DragonDropVueDragOptions
+        const dragOpts = binding.value ?? ({} as DragonDropVueDragOptions)
 
         // add css classes
         addClasses(domEl, [constants.dragClass, opts.dragClass])
@@ -23,16 +23,15 @@ export default {
         domEl.setAttribute('draggable', 'true')
 
         // wire drag events
-        domEl.addEventListener('dragstart', ev => onDragStart(ev, dragOpts, opts))
-        domEl.addEventListener('dragend', ev => onDragEnd(ev, dragOpts, opts))
+        addEventHandler(domEl, 'dragstart', ev => onDragStart(ev, dragOpts, opts))
+        addEventHandler(domEl, 'dragend', ev => onDragEnd(ev, dragOpts, opts))
       },
       beforeUnmount: (el, binding, vnode, prevVnode) => {
         const domEl = el as HTMLElement
-        const dragOpts = binding.value as DragonDropVueDragOptions
 
         // remove drag events
-        domEl.removeEventListener('dragstart', ev => onDragStart(ev, dragOpts, opts))
-        domEl.removeEventListener('dragend', ev => onDragEnd(ev, dragOpts, opts))
+        removeEventHandler(domEl, 'dragstart')
+        removeEventHandler(domEl, 'dragend')
       },
     })
 
@@ -42,22 +41,25 @@ export default {
     app.directive('drop', {
       beforeMount: (el, binding, vnode, prevVnode) => {
         const domEl = el as HTMLElement
-        const dragOpts = binding.value as DragonDropVueDragOptions
+        const dragOpts = binding.value ?? ({} as DragonDropVueDragOptions)
 
         // add css classes
         addClasses(domEl, [constants.dropClass, opts.dropClass])
 
         // wire drag events
-        domEl.addEventListener('dragover', ev => onDragOver(ev, dragOpts, opts))
-        domEl.addEventListener('drop', ev => onDrop(ev, dragOpts, opts))
+        addEventHandler(domEl, 'dragover', ev => onDragOver(ev, dragOpts, opts))
+        addEventHandler(domEl, 'dragenter', ev => onDragEnter(ev, dragOpts, opts))
+        addEventHandler(domEl, 'dragleave', ev => onDragLeave(ev, dragOpts, opts))
+        addEventHandler(domEl, 'drop', ev => onDrop(ev, dragOpts, opts))
       },
       beforeUnmount: (el, binding, vnode, prevVnode) => {
         const domEl = el as HTMLElement
-        const dragOpts = binding.value as DragonDropVueDragOptions
 
         // remove drag events
-        domEl.removeEventListener('dragover', ev => onDragOver(ev, dragOpts, opts))
-        domEl.removeEventListener('drop', ev => onDrop(ev, dragOpts, opts))
+        removeEventHandler(domEl, 'dragover')
+        removeEventHandler(domEl, 'drop')
+        removeEventHandler(domEl, 'dragleave')
+        removeEventHandler(domEl, 'drop')
       },
     })
   },

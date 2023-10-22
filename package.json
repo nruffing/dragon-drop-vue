@@ -84,9 +84,6 @@
     "vue-router": "^4.2.5",
     "vue-tsc": "^1.8.19"
   },
-  "dependencies": {
-    "debounce": "^1.2.1"
-  },
   "lint-staged": {
     "*.{ts,json,vue,css}": "prettier --write"
   }
