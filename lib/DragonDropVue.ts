@@ -13,6 +13,11 @@ export default {
      */
     app.directive('drag', {
       beforeMount: (el, binding, vnode, prevVnode) => {
+        console.log(binding.value)
+        if (binding.value === false) {
+          return
+        }
+
         const domEl = el as HTMLElement
         const dragOpts = (binding.value ?? {}) as DragonDropVueDragOptions
 
@@ -40,6 +45,10 @@ export default {
      */
     app.directive('drop', {
       beforeMount: (el, binding, vnode, prevVnode) => {
+        if (binding.value === false) {
+          return
+        }
+
         const domEl = el as HTMLElement
         const dragOpts = (binding.value ?? {}) as DragonDropVueDragOptions
 
