@@ -53,8 +53,7 @@
     "type-check": "vue-tsc --noEmit",
     "format": "npx prettier --write \"./**/*.{ts,json,vue,css}\"",
     "upgrade-all": "ncu --upgrade --reject @types/node",
-    "prepare": "husky install",
-    "publish": "npm run build; npm publish"
+    "prepare": "husky install"
   },
   "peerDependencies": {
     "vue": ">=3.2.0"
