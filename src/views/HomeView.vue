@@ -22,7 +22,7 @@ export default defineComponent({
   computed: {
     dragImage(): DragonDropVueDragImageOptions {
       const image = new Image()
-      image.src = 'dragon.svg'
+      image.src = 'dragon.png'
       return {
         image,
         xOffset: 30,
