@@ -9,6 +9,8 @@ ________________________________________
     * Initial release
 * v0.0.2
     * allow false to turn off drag and drop directives
+* v0.0.3
+    * remove console.log
 
 ________________________________________
 

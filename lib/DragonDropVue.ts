@@ -13,7 +13,6 @@ export default {
      */
     app.directive('drag', {
       beforeMount: (el, binding, vnode, prevVnode) => {
-        console.log(binding.value)
         if (binding.value === false) {
           return
         }
