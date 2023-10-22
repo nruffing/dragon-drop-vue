@@ -50,6 +50,12 @@ export function onDragEnd(event: DragEvent, dragOpts: DragonDropVueDragOptions, 
 }
 
 export function onDragOver(event: DragEvent, dragOpts: DragonDropVueDragOptions, opts: DragonDropVueOptions): boolean | undefined {
+  /*
+   * To ensure that the drop event always fires as expected, you should always include a preventDefault() call in the part of your
+   * code which handles the dragover event.
+   * https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/drop_event
+   */
+  event.preventDefault()
   const domEl = event.target as HTMLElement
 
   log({ eventName: 'onDragOver', event, domEl, dragOpts, opts })
@@ -121,4 +127,7 @@ export function onDrop(event: DragEvent, dragOpts: DragonDropVueDragOptions, opt
       return false
     }
   }
+
+  // remove css classes
+  removeClasses(domEl, [constants.dragOverClass, opts.dragOverClass])
 }

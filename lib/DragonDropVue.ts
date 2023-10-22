@@ -14,7 +14,6 @@ export default {
     app.directive('drag', {
       beforeMount: (el, binding, vnode, prevVnode) => {
         const domEl = el as HTMLElement
-        console.log(binding.value)
         const dragOpts = (binding.value ?? {}) as DragonDropVueDragOptions
 
         // add css classes
@@ -58,7 +57,7 @@ export default {
 
         // remove drag events
         removeEventHandler(domEl, 'dragover')
-        removeEventHandler(domEl, 'drop')
+        removeEventHandler(domEl, 'dragenter')
         removeEventHandler(domEl, 'dragleave')
         removeEventHandler(domEl, 'drop')
       },
