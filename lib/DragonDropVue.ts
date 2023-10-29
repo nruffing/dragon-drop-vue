@@ -11,7 +11,7 @@ export default {
     /*
      * v-drag
      */
-    app.directive('drag', {
+    app.directive(opts.dragDirectiveName!, {
       beforeMount: (el, binding, vnode, prevVnode) => {
         if (binding.value === false) {
           return
@@ -53,7 +53,7 @@ export default {
     /*
      * v-drop
      */
-    app.directive('drop', {
+    app.directive(opts.dropDirectiveName!, {
       beforeMount: (el, binding, vnode, prevVnode) => {
         if (binding.value === false) {
           return

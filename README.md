@@ -14,6 +14,8 @@ ________________________________________
 * v0.0.4
     * export DropEffect
     * react to options changes that can turn draggable on/off
+* v0.1.0
+    * allow directive names to be overridden via plugin options
 
 ________________________________________
 

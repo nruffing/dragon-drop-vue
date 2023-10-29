@@ -1,6 +1,8 @@
 import type { DropEffect } from './htmlHelpers'
 
 export interface DragonDropVueOptions {
+  dragDirectiveName: string | undefined
+  dropDirectiveName: string | undefined
   debugLog: boolean | undefined
   dragClass: string | undefined
   draggingClass: string | undefined
