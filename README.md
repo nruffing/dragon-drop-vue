@@ -16,6 +16,8 @@ ________________________________________
     * react to options changes that can turn draggable on/off
 * v0.1.0
     * allow directive names to be overridden via plugin options
+* v0.1.1
+    * improve plugin and directive typing
 
 ________________________________________
 
