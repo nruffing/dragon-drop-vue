@@ -1,7 +1,7 @@
 {
   "name": "dragon-drop-vue",
-  "version": "0.1.1",
-  "description": "Customizable native Vue3 drag-n-drop",
+  "version": "0.2.0",
+  "description": "Customizable native Vue3 drag-n-drop library with no dependencies. Includes Vue plugin that registers directives to configure draggable elements and drop zones.",
   "license": "MIT",
   "author": {
     "name": "Nicholas Ruffing",
