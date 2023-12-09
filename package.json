@@ -1,6 +1,6 @@
 {
   "name": "dragon-drop-vue",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Customizable native Vue3 drag-n-drop library with no dependencies. Includes Vue plugin that registers directives to configure draggable elements and drop zones.",
   "license": "MIT",
   "author": {
@@ -59,7 +59,7 @@
     "vue": ">=3.2.0"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "devDependencies": {
     "@babel/types": "^7.23.0",

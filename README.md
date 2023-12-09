@@ -109,6 +109,7 @@ All event handler properties are of the following type.
 
 ### v1.0.0
   * Plugin options can no longer be undefined. The default value is now an empty object.
+  * Requires node v18 or greater
 
 ### v0.2.0
   * Documentation update
