@@ -1,17 +1,17 @@
 import type { DropEffect } from './htmlHelpers'
 
 export interface DragonDropVueOptions {
-  dragDirectiveName: string | undefined
-  dropDirectiveName: string | undefined
-  debugLog: boolean | undefined
-  dragClass: string | undefined
-  draggingClass: string | undefined
-  dropClass: string | undefined
-  dragOverClass: string | undefined
+  dragDirectiveName?: string
+  dropDirectiveName?: string
+  debugLog?: boolean
+  dragClass?: string
+  draggingClass?: string
+  dropClass?: string
+  dragOverClass?: string
 }
 
 export interface DragonDropVueDragOptions<T = any> {
-  dragData: T | undefined
+  dragData?: T
   onDragStart?: (
     domEl: HTMLElement,
     dragEvent: DragEvent,
@@ -43,8 +43,8 @@ export interface DragonDropVueDragOptions<T = any> {
     options: DragonDropVueOptions,
   ) => boolean | undefined
   onDrop?: (domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<T>, options: DragonDropVueOptions) => boolean | undefined
-  dropEffect: DropEffect | undefined
-  dragImage: DragonDropVueDragImageOptions | undefined
+  dropEffect?: DropEffect
+  dragImage?: DragonDropVueDragImageOptions
 }
 
 export interface DragonDropVueDragImageOptions {

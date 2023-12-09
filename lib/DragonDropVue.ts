@@ -5,8 +5,8 @@ import constants from './constants'
 import { onDragEnd, onDragEnter, onDragLeave, onDragOver, onDragStart, onDrop } from './eventHandlers'
 
 export default {
-  install: (app: App, options: DragonDropVueOptions | undefined = undefined) => {
-    const opts = Object.assign({ ...constants.defaultOptions }, options ?? {})
+  install: (app: App, options: DragonDropVueOptions = {}) => {
+    const opts = Object.assign({ ...constants.defaultOptions }, options)
 
     /*
      * v-drag
@@ -115,4 +115,4 @@ export default {
       addEventHandler(el, 'drop', ev => onDrop(ev, dragOpts, opts))
     }
   },
-} as Plugin<DragonDropVueOptions | undefined>
+}

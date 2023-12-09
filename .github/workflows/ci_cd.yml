@@ -1,0 +1,89 @@
+name: CI/CD
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "**" ]
+
+permissions:
+  id-token: write
+  contents: write
+
+env:
+  VERSION: ''
+
+jobs:
+
+  ci:    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 21.x]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      EXISTING_VERSIONS: ''
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        registry-url: 'https://registry.npmjs.org'
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build
+
+  build_and_publish:
+    runs-on: ubuntu-latest
+    needs: [ci]
+    if: github.ref == 'refs/heads/main'    
+    env:
+      EXISTING_VERSIONS: ''
+      NODE_VERSION: 18.x
+      SHOULD_PUBLISH: false
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v3
+      with:
+        registry-url: 'https://registry.npmjs.org'
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build
+    - name: Parse package version
+      run: echo "VERSION=$(grep -Po '(?<=\"version\":\s\")\d+\.\d+\.\d+(?=\")' ./package.json)" >> $GITHUB_ENV
+    - name: Get existing versions from NuGet
+      run: echo "EXISTING_VERSIONS=$(npm view dragon-drop-vue --json versions | tr -d '\r\n ')" >> $GITHUB_ENV
+    - name: Detect new version
+      run: echo "SHOULD_PUBLISH=$(echo ${{ env.VERSION != '' && fromJson(env.EXISTING_VERSIONS) != 0 && (contains(fromJson(env.EXISTING_VERSIONS), env.VERSION) == false) }} )" >> $GITHUB_ENV
+    - name: Publish
+      if: fromJson(env.SHOULD_PUBLISH)
+      run: npm publish --provenance
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    outputs:
+      should_publish: ${{ env.SHOULD_PUBLISH }}
+ 
+  create_release:
+    runs-on: ubuntu-latest
+    needs: [build_and_publish]
+    if: fromJson(needs.build_and_publish.outputs.should_publish)
+    env:
+      ESCAPED_VERSION: ''
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse package version
+        run: echo "VERSION=$(grep -Po '(?<=\"version\":\s\")\d+\.\d+\.\d+(?=\")' ./package.json)" >> $GITHUB_ENV
+      - name: Escape version
+        run: echo "ESCAPED_VERSION=$(echo "${{ env.VERSION }}" | sed 's/[^^]/[&]/g; s/\^/\\^/g')" >> $GITHUB_ENV
+      - name: Parse release notes
+        run: (grep -Pzo '(?<=### v${{ env.ESCAPED_VERSION }}\n)\X+?(?=\n\n)' ./README.md) | tr -d '\0' > release_notes.txt
+      - name: Create release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.VERSION }}
+          release_name: v${{ env.VERSION }}
+          body_path: ${{ github.workspace }}/release_notes.txt

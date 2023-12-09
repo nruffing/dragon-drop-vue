@@ -107,19 +107,27 @@ All event handler properties are of the following type.
 
 ## Release Notes
 
-* v0.0.1
-    * Initial release
-* v0.0.2
-    * allow false to turn off drag and drop directives
-* v0.0.3
-    * remove console.log
-* v0.0.4
-    * export DropEffect
-    * react to options changes that can turn draggable on/off
-* v0.1.0
-    * allow directive names to be overridden via plugin options
-* v0.1.1
-    * improve plugin and directive typing
-* v0.2.0
-    * Documentation update
+### v1.0.0
+  * Plugin options can no longer be undefined. The default value is now an empty object.
 
+### v0.2.0
+  * Documentation update
+
+### v0.1.1
+  * improve plugin and directive typing
+
+### v0.1.0
+  * allow directive names to be overridden via plugin options
+
+### v0.0.4
+  * export DropEffect
+  * react to options changes that can turn draggable on/off
+
+### v0.0.3
+  * remove console.log
+
+### v0.0.2
+  * allow false to turn off drag and drop directives
+
+### v0.0.1
+  * Initial release
