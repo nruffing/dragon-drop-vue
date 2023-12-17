@@ -2,6 +2,7 @@ import { addClasses, removeClasses } from './htmlHelpers'
 import type { DragonDropVueDragOptions, DragonDropVueOptions } from './options'
 import constants from './constants'
 import { log } from './logger'
+import { createApp } from 'vue'
 
 export function onDragStart(event: DragEvent, dragOpts: DragonDropVueDragOptions, opts: DragonDropVueOptions): boolean | undefined {
   const domEl = event.target as HTMLElement
@@ -30,7 +31,18 @@ export function onDragStart(event: DragEvent, dragOpts: DragonDropVueDragOptions
     }
 
     if (dragOpts.dragImage) {
-      event.dataTransfer.setDragImage(dragOpts.dragImage.image, dragOpts.dragImage.xOffset, dragOpts.dragImage.yOffset)
+      if (!dragOpts.dragImage.image && dragOpts.dragImage.rootComponent) {
+        const div = document.createElement('div')
+        div.style.position = 'absolute'
+        div.style.top = '-1000px'
+        document.body.appendChild(div)
+        createApp(dragOpts.dragImage.rootComponent, dragOpts.dragImage.rootComponentProps ?? {}).mount(div)
+        dragOpts.dragImage.image = div
+      }
+
+      if (dragOpts.dragImage.image) {
+        event.dataTransfer.setDragImage(dragOpts.dragImage.image, dragOpts.dragImage.xOffset ?? 0, dragOpts.dragImage.yOffset ?? 0)
+      }
     }
   }
 }
@@ -39,6 +51,11 @@ export function onDragEnd(event: DragEvent, dragOpts: DragonDropVueDragOptions, 
   const domEl = event.target as HTMLElement
 
   log({ eventName: 'onDragEnd', event, domEl, dragOpts, opts })
+
+  // remove drag image from dom, browser will do this automatically for images since it created the image element
+  if (dragOpts.dragImage?.image && !(dragOpts.dragImage.image instanceof Image)) {
+    document.body.removeChild(dragOpts.dragImage.image)
+  }
 
   // call consumer-defined handler
   if (dragOpts.onDragEnd) {

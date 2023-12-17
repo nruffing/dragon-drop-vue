@@ -2,6 +2,8 @@
 
 Customizable native Vue3 drag-n-drop library with no dependencies. Includes Vue plugin that registers directives to configure draggable elements and drop zones.
 
+This package is intended to just be a directive that wraps the browser's drag and drop API and combine it with Vue's reactive features. The actual HTML events are available in each of the event handler callbacks. It is recommended to still understand how the browser's API works to best decide how to wire-up the directives for your use case. MDN has a good primer on the browser API [here](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API).
+
 ## Install
 
 ```
@@ -39,13 +41,13 @@ createApp(App).use(DragonDropVue, dragonDropOptions)
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { DragonDropVueDragOptions, DragonDropVueOptions } from '../../lib/main'
+import type { DragonDropVueDragOptions, DragonDropVueOptions } from 'dragon-drop-vue'
 
 const columns = ref([0, 1, 2, 3, 4, 5, 6])
 const dragging = ref<number | undefined>(undefined)
 
 const image = new Image()
-image.src = 'dragen.png'
+image.src = 'dragon.png'
 const dragImage = {
   image,
   xOffset: 30,
@@ -103,11 +105,49 @@ All event handler properties are of the following type.
 | `onDragLeave` | Drag/drop event handler | `dragleave` event handler |
 | `onDrop` | Drag/drop event handler | `drop` event handler |
 
+## Drag Data
+
+When drag data is specified to the drag directive it is set on the data transfer of the browser events as JSON. The drop directive will also retrieve the drag data from the date transfer object, deserialize it and set it as the drag data on the options passed to the `onDrop` callback.
+
+## Vue Component as Drag Image
+
+The drag directive contains the necessary boilerplate to take a Vue component definition and prop values to create an element to use as the drag image. It is also automatically removed from the DOM as part of `onDrop` handling.
+
+```vue
+<template>
+  <main>
+    <template v-for="column in columns">
+      <div v-drop="{ dragData: column, onDragEnter: onDragEnter, onDrop: onDrop }"></div>
+      <div v-drag="{ dragData: column, onDragStart: onDragStart }">{{ column }}</div>
+    </template>
+  </main>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import type { DragonDropVueDragOptions, DragonDropVueOptions } from 'dragon-drop-vue'
+import CustomComponent from '@/components/CustomComponent.vue'
+
+const columns = ref([0, 1, 2, 3, 4, 5, 6])
+const dragging = ref<number | undefined>(undefined)
+
+function onDragStart(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<number>, options: DragonDropVueOptions) {
+  dragging.value = dragOptions.dragData
+
+  dragOptions.dragImage = {
+    rootComponent: CustomComponent,
+    rootComponentProps: { column: dragOptions.dragData },
+  }
+}
+</script>
+```
+
 ---
 
 ## Release Notes
 
 ### v1.1.0
+  * Add ability to specify a Vue component and property values for the drag image.
   * Parse data transfer drag data from drop event and pass to `onDrop` via the drag options drag data if drag data does not already exist.
 
 ### v1.0.0

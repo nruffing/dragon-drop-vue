@@ -1,3 +1,4 @@
+import type { Component } from 'vue'
 import type { DropEffect } from './htmlHelpers'
 
 export interface DragonDropVueOptions {
@@ -48,7 +49,9 @@ export interface DragonDropVueDragOptions<T = any> {
 }
 
 export interface DragonDropVueDragImageOptions {
-  image: Element
-  xOffset: number
-  yOffset: number
+  image?: Element
+  xOffset?: number
+  yOffset?: number
+  rootComponent?: Component
+  rootComponentProps?: Record<string, unknown>
 }
