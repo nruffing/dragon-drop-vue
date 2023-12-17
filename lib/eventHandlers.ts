@@ -121,13 +121,21 @@ export function onDragLeave(event: DragEvent, dragOpts: DragonDropVueDragOptions
 export function onDrop(event: DragEvent, dragOpts: DragonDropVueDragOptions, opts: DragonDropVueOptions): boolean | undefined {
   const domEl = event.target as HTMLElement
 
-  log({ eventName: 'onDrop', event, domEl, dragOpts, opts })
+  const dragOptions = dragOpts ? { ...dragOpts } : ({} as DragonDropVueDragOptions)
+  if (dragOptions.dragData === undefined && event.dataTransfer) {
+    const data = event.dataTransfer.getData('application/json')
+    if (data) {
+      dragOptions.dragData = JSON.parse(data)
+    }
+  }
+
+  log({ eventName: 'onDrop', event, domEl, dragOpts: dragOptions, opts })
 
   // call consumer-defined handler
   if (dragOpts.onDrop) {
-    var dontTerminate = dragOpts.onDrop(domEl, event, dragOpts, opts)
+    var dontTerminate = dragOpts.onDrop(domEl, event, dragOptions, opts)
     if (dontTerminate === false) {
-      log({ eventName: 'onDrop | terminated', event, domEl, dragOpts, opts })
+      log({ eventName: 'onDrop | terminated', event, domEl, dragOpts: dragOptions, opts })
       return false
     }
   }

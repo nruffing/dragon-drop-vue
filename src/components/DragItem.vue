@@ -1,7 +1,7 @@
 <template>
   <div
     class="drag-item"
-    v-drag="{ onDragStart }"
+    v-drag="{ dragData: { num }, onDragStart }"
   >
     Item {{ num }}
   </div>
@@ -12,6 +12,10 @@ import { defineComponent, createApp } from 'vue'
 import DragImage from './DragImage.vue'
 import { type DragonDropVueDragOptions, type DragonDropVueOptions } from '../../lib/options'
 
+export interface DragDataType {
+  num: number
+}
+
 export default defineComponent({
   name: 'DragItem',
   props: {
@@ -21,7 +25,7 @@ export default defineComponent({
     },
   },
   methods: {
-    onDragStart(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<any>, options: DragonDropVueOptions) {
+    onDragStart(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<DragDataType>, options: DragonDropVueOptions) {
       const div = document.createElement('div')
       div.style.position = 'absolute'
       div.style.top = '-1000px'
@@ -33,7 +37,7 @@ export default defineComponent({
         yOffset: 0,
       }
     },
-    onDragEnd(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<any>, options: DragonDropVueOptions) {
+    onDragEnd(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<DragDataType>, options: DragonDropVueOptions) {
       document.body.removeChild(dragOptions.dragImage!.image)
     },
   },

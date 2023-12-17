@@ -107,6 +107,9 @@ All event handler properties are of the following type.
 
 ## Release Notes
 
+### v1.1.0
+  * Parse data transfer drag data from drop event and pass to `onDrop` via the drag options drag data if drag data does not already exist.
+
 ### v1.0.0
   * Plugin options can no longer be undefined. The default value is now an empty object.
   * Requires node v18 or greater

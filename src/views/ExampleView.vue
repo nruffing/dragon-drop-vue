@@ -2,8 +2,10 @@
   <main>
     <div
       class="dropzone"
-      v-drop="{}"
-    ></div>
+      v-drop="{ onDrop }"
+    >
+      <span v-if="lastDropped !== undefined"> Last dropped: {{ lastDropped }} </span>
+    </div>
 
     <div class="item-list">
       <DragItem
@@ -16,7 +18,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import DragItem from '../components/DragItem.vue'
+import DragItem, { type DragDataType } from '../components/DragItem.vue'
+import type { DragonDropVueDragOptions, DragonDropVueOptions } from '../../lib/options'
 
 export default defineComponent({
   name: 'ExampleView',
@@ -26,7 +29,13 @@ export default defineComponent({
   data() {
     return {
       dragItems: [0, 1, 2, 3, 4, 5, 6],
+      lastDropped: undefined as number | undefined,
     }
+  },
+  methods: {
+    onDrop(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<DragDataType>, options: DragonDropVueOptions) {
+      this.lastDropped = dragOptions.dragData?.num
+    },
   },
 })
 </script>
@@ -42,6 +51,10 @@ main {
   width: 500px;
   height: 300px;
   background-color: #ccc;
+  color: #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .dropzone.ddv-dragging-over {
