@@ -146,6 +146,9 @@ function onDragStart(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: Drag
 
 ## Release Notes
 
+### v1.1.1
+  * Update development dependencies.
+
 ### v1.1.0
   * Add ability to specify a Vue component and property values for the drag image.
   * Parse data transfer drag data from drop event and pass to `onDrop` via the drag options drag data if drag data does not already exist.
