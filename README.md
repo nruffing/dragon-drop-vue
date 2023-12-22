@@ -146,6 +146,11 @@ function onDragStart(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: Drag
 
 ## Release Notes
 
+### v1.2.0
+  * Add additional debug logging to track when directive lifecycle hooks fire and DOM state after processing.
+  * Add additional debug logging to track when HTML event handlers are added or removed.
+  * Improve debug log formatting.
+
 ### v1.1.1
   * Update development dependencies.
 

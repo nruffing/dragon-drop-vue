@@ -2,14 +2,17 @@ import type { DragonDropVueDragOptions, DragonDropVueOptions } from './options'
 
 export interface LogEvent {
   eventName: string
-  event: DragEvent
+  event?: DragEvent
   domEl: HTMLElement
-  dragOpts: DragonDropVueDragOptions
+  dragOpts?: DragonDropVueDragOptions | false
   opts: DragonDropVueOptions
+  classes?: string[]
 }
 
 export function log(data: LogEvent) {
   if (data.opts.debugLog) {
-    console.log(`DragonDropVue [${data.eventName}]\n`, data)
+    console.groupCollapsed(`🐲%c dragon-drop-vue | ${data.eventName}`, 'color: green; font-weight: bold;')
+    console.log(data)
+    console.groupEnd()
   }
 }

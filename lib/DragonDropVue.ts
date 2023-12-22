@@ -3,6 +3,7 @@ import { addClasses, addEventHandler, removeEventHandler } from './htmlHelpers'
 import type { DragonDropVueDragOptions, DragonDropVueOptions } from './options'
 import constants from './constants'
 import { onDragEnd, onDragEnter, onDragLeave, onDragOver, onDragStart, onDrop } from './eventHandlers'
+import { log } from './logger'
 
 export default {
   install: (app: App, options: DragonDropVueOptions = {}) => {
@@ -22,6 +23,7 @@ export default {
           return
         }
         setupDrag(el, binding.value)
+        log({ eventName: 'drag | beforeMount', domEl: el, dragOpts: binding.value, opts })
       },
       updated: (
         el: HTMLElement,
@@ -34,6 +36,7 @@ export default {
         } else if (el.getAttribute('draggable') !== 'true') {
           setupDrag(el, binding.value)
         }
+        log({ eventName: 'drag | updated', domEl: el, dragOpts: binding.value, opts })
       },
       beforeUnmount: (
         el: HTMLElement,
@@ -42,8 +45,9 @@ export default {
         prevVnode: VNode<any, HTMLElement> | null,
       ) => {
         // remove drag events
-        removeEventHandler(el, 'dragstart')
-        removeEventHandler(el, 'dragend')
+        removeEventHandler(el, 'dragstart', opts)
+        removeEventHandler(el, 'dragend', opts)
+        log({ eventName: 'drag | beforeUnmount', domEl: el, dragOpts: binding.value, opts })
       },
     } as Directive<HTMLElement, DragonDropVueDragOptions | false>)
 
@@ -55,8 +59,8 @@ export default {
       el.setAttribute('draggable', 'true')
 
       // wire drag events
-      addEventHandler(el, 'dragstart', ev => onDragStart(ev, dragOpts, opts))
-      addEventHandler(el, 'dragend', ev => onDragEnd(ev, dragOpts, opts))
+      addEventHandler(el, 'dragstart', ev => onDragStart(ev, dragOpts, opts), opts)
+      addEventHandler(el, 'dragend', ev => onDragEnd(ev, dragOpts, opts), opts)
     }
 
     /*
@@ -74,6 +78,7 @@ export default {
         }
 
         setupDrop(el, binding.value)
+        log({ eventName: 'drop | beforeMount', domEl: el, dragOpts: binding.value, opts })
       },
       updated: (
         el: HTMLElement,
@@ -89,6 +94,7 @@ export default {
         if (!domEl.classList.contains(constants.dropClass)) {
           setupDrop(el, binding.value)
         }
+        log({ eventName: 'drop | updated', domEl: el, dragOpts: binding.value, opts })
       },
       beforeUnmount: (
         el: HTMLElement,
@@ -97,10 +103,11 @@ export default {
         prevVnode: VNode<any, HTMLElement> | null,
       ) => {
         // remove drag events
-        removeEventHandler(el, 'dragover')
-        removeEventHandler(el, 'dragenter')
-        removeEventHandler(el, 'dragleave')
-        removeEventHandler(el, 'drop')
+        removeEventHandler(el, 'dragover', opts)
+        removeEventHandler(el, 'dragenter', opts)
+        removeEventHandler(el, 'dragleave', opts)
+        removeEventHandler(el, 'drop', opts)
+        log({ eventName: 'drop | beforeUnmount', domEl: el, dragOpts: binding.value, opts })
       },
     } as Directive<HTMLElement, DragonDropVueDragOptions | false>)
 
@@ -109,10 +116,10 @@ export default {
       addClasses(el, [constants.dropClass, opts.dropClass])
 
       // wire drag events
-      addEventHandler(el, 'dragover', ev => onDragOver(ev, dragOpts, opts))
-      addEventHandler(el, 'dragenter', ev => onDragEnter(ev, dragOpts, opts))
-      addEventHandler(el, 'dragleave', ev => onDragLeave(ev, dragOpts, opts))
-      addEventHandler(el, 'drop', ev => onDrop(ev, dragOpts, opts))
+      addEventHandler(el, 'dragover', ev => onDragOver(ev, dragOpts, opts), opts)
+      addEventHandler(el, 'dragenter', ev => onDragEnter(ev, dragOpts, opts), opts)
+      addEventHandler(el, 'dragleave', ev => onDragLeave(ev, dragOpts, opts), opts)
+      addEventHandler(el, 'drop', ev => onDrop(ev, dragOpts, opts), opts)
     }
   },
 }
