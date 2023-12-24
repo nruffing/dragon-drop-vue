@@ -4,6 +4,18 @@ Customizable native Vue3 drag-n-drop library with no dependencies. Includes Vue 
 
 This package is intended to just be a directive that wraps the browser's drag and drop API and combine it with Vue's reactive features. The actual HTML events are available in each of the event handler callbacks. It is recommended to still understand how the browser's API works to best decide how to wire-up the directives for your use case. MDN has a good primer on the browser API [here](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API).
 
+<p align="center">
+  <a href="https://github.com/nruffing/dragon-drop-vue/actions/workflows/ci_cd.yml">
+    <img src="https://github.com/nruffing/dragon-drop-vue/actions/workflows/ci_cd.yml/badge.svg" />
+  </a>
+  <a href="https://www.npmjs.com/package/dragon-drop-vue" target="_blank" aria-label="npm">
+    <img alt="npm" src="https://img.shields.io/npm/v/dragon-drop-vue?logo=npm" />
+  </a>
+  <a href="https://github.com/nruffing/dragon-drop-vue/blob/main/LICENSE" aria-label="MIT License">
+    <img alt="GitHub" src="https://img.shields.io/github/license/nruffing/dragon-drop-vue" />
+  </a>
+</p>
+
 ## Install
 
 ```
