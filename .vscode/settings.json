@@ -4,5 +4,6 @@
   "editor.insertSpaces": true,
   "editor.detectIndentation": true,
   "editor.tabSize": 2,
-  "editor.indentSize": "tabSize"
+  "editor.indentSize": "tabSize",
+  "cSpell.words": ["dragondropvue"]
 }
