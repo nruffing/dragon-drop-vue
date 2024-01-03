@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import DragonDropVue from '../lib/DragonDropVue'
+import { DragonDropVue } from 'dragon-drop-vue'
 
 const dragonDropOptions = {
   debugLog: true,

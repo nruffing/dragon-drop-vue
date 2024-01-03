@@ -12,17 +12,36 @@ node_modules
 dist
 dist-ssr
 coverage
+coverage-e2e
+coverage-unit
 *.local
 
 /cypress/videos/
 /cypress/screenshots/
 
 # Editor directories and files
-!.vscode/*
-!.husky/*
 .idea
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+
+# vuepress
+.temp
+.cache
+vuepress-cache
+vuepress-temp
+
+
+/scripts/**/*.js
+.env
+
+sitemap.xml
+robots.txt
+urls.txt
+
+*.tsbuildinfo
+.nyc_output
+screenshots

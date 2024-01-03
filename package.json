@@ -23,7 +23,8 @@
     "drag&drop",
     "drag-n-drop",
     "vue",
-    "vue3"
+    "vue3",
+    "vuejs"
   ],
   "type": "module",
   "private": false,
@@ -45,15 +46,30 @@
   "module": "dist/dragon-drop-vue.mjs",
   "browser": "dist/dragon-drop-vue.umd.js",
   "scripts": {
-    "dev": "vite",
-    "build": "run-p type-check build-types build-only",
+    "dev": "pnpm --parallel dev",
+    "build": "pnpm type-check && pnpm build-only && pnpm build-types",
     "build-types": "vue-tsc --declaration --emitDeclarationOnly",
-    "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
-    "format": "npx prettier --write \"./**/*.{ts,json,vue,css}\"",
-    "upgrade-all": "ncu --upgrade --reject @types/node",
-    "prepare": "husky install"
+    "ci-all": "pnpm i && pnpm run --recursive build",
+    "ci-e2e:linux": "pnpm i && pnpm run build && pnpm run --filter e2e build && pnpm run --filter e2e test:chrome && pnpm run --filter e2e test:firefox",
+    "ci-e2e:macos": "pnpm i && pnpm run build && pnpm run --filter e2e build && pnpm run --filter e2e test:chrome && pnpm run --filter e2e test:firefox && pnpm run --filter e2e test:safari",
+    "ci-e2e:windows": "pnpm i && pnpm run build && pnpm run --filter e2e build && pnpm run --filter e2e test:chrome && pnpm run --filter e2e test:firefox && pnpm run --filter e2e test:edge",
+    "test": "vitest",
+    "test:unit": "vitest --run",
+    "test:unit:coverage": "mkdir -p coverage-unit/.tmp && vitest --run --coverage && cp -f test-util/coverage-styles.css coverage-unit/base.css",
+    "test:unit:coverage:open": "pnpm run test:unit:coverage && open -a 'Google Chrome' coverage/index.html",
+    "test:e2e": "pnpm run --filter e2e test",
+    "test:e2e:open": "pnpm run --filter e2e tests:open",
+    "e2e-app:dev": "pnpm run --filter './e2e' dev",
+    "e2e-app:build": "pnpm run --filter './e2e' build",
+    "format": "pnpm exec prettier --write \"./**/*.{ts,json,vue,css}\"",
+    "upgrade-all": "ncu --upgrade",
+    "check-upgrade-all": "clear && ncu",
+    "prepare": "husky install && chmod ug+x .husky/*",
+    "spellcheck": "pnpm cspell .",
+    "dev-app:dev": "pnpm run --filter './dev-app' dev",
+    "dev-app:build": "pnpm run --filter './dev-app' build"
   },
   "peerDependencies": {
     "vue": ">=3.2.0"

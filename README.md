@@ -27,7 +27,7 @@ npm i dragon-drop-vue
 ```ts
 import { createApp } from 'vue'
 import App from './App.vue'
-import DragonDropVue from 'dragon-drop-vue'
+import { DragonDropVue } from 'dragon-drop-vue'
 
 const dragonDropOptions = {
   dragClass: 'custom-draggable',
