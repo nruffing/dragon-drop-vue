@@ -100,5 +100,8 @@
   },
   "lint-staged": {
     "*.{ts,json,vue,css}": "prettier --write"
+  },
+  "dependencies": {
+    "native-event-vue": "^1.0.1"
   }
 }

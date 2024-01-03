@@ -9,5 +9,6 @@ export default {
   defaultOptions: {
     dragDirectiveName: 'drag',
     dropDirectiveName: 'drop',
+    dragOverDebounceMs: 300,
   } as DragonDropVueOptions,
 }

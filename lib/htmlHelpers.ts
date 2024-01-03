@@ -1,6 +1,6 @@
-import constants from './constants'
 import { log } from './logger'
 import type { DragonDropVueOptions } from './options'
+import { useNativeEvent, resolveEventPropNamePrefix } from 'native-event-vue'
 
 export function addClasses(domEl: HTMLElement, classes: (string | undefined)[]) {
   for (const className of classes) {
@@ -15,16 +15,16 @@ export function removeClasses(domEl: HTMLElement, classes: (string | undefined)[
 }
 
 export function addEventHandler(domEl: HTMLElement, eventName: string, listener: (ev: DragEvent) => any, opts: DragonDropVueOptions) {
-  ;(domEl as any)[`${constants.eventPropNamePrefix}${eventName}`] = listener
-  domEl.addEventListener(eventName, listener as (ev: Event) => any)
+  const debounceMs = eventName === 'dragover' ? opts.dragOverDebounceMs : undefined
+  useNativeEvent(domEl, eventName, listener as (ev: Event) => any, undefined, debounceMs)
   log({ eventName: `addEventHandler | ${eventName}`, domEl, opts })
 }
 
 export function removeEventHandler(domEl: HTMLElement, eventName: string, opts: DragonDropVueOptions) {
-  const listener = (domEl as any)[`${constants.eventPropNamePrefix}${eventName}`] as ((ev: Event) => any) | undefined
-  if (listener) {
-    ;(domEl as any)[`${constants.eventPropNamePrefix}${eventName}`] = undefined
-    domEl.removeEventListener(eventName, listener)
+  const propName = resolveEventPropNamePrefix(eventName)
+  const nativeEvent = domEl[propName]
+  if (nativeEvent?.destroy) {
+    nativeEvent.destroy()
     log({ eventName: `removeEventHandler | ${eventName}`, domEl, opts })
   }
 }

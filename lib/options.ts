@@ -9,6 +9,7 @@ export interface DragonDropVueOptions {
   draggingClass?: string
   dropClass?: string
   dragOverClass?: string
+  dragOverDebounceMs?: number
 }
 
 export interface DragonDropVueDragOptions<T = any> {

@@ -4,10 +4,19 @@ import type { DragonDropVueDragOptions, DragonDropVueOptions } from './options'
 import constants from './constants'
 import { onDragEnd, onDragEnter, onDragLeave, onDragOver, onDragStart, onDrop } from './eventHandlers'
 import { log } from './logger'
+import { NativeEventVue } from 'native-event-vue'
 
 export default {
   install: (app: App, options: DragonDropVueOptions = {}) => {
     const opts = Object.assign({ ...constants.defaultOptions }, options)
+
+    /**
+     * setup native-event-vue
+     */
+    app.use(NativeEventVue, {
+      debugLog: opts.debugLog,
+      propNamePrefix: constants.eventPropNamePrefix,
+    })
 
     /*
      * v-drag

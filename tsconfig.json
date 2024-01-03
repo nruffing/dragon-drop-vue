@@ -8,7 +8,8 @@
     },
     "declaration": true,
     "outDir": "dist/types",
-    "noEmit": false
+    "noEmit": false,
+    "noImplicitAny": false
   },
   "references": [
     {
