@@ -1,7 +1,7 @@
 import { type App } from 'vue'
 import type { DragonDropVueOptions } from './options'
 import constants from './constants'
-import { NativeEventVue } from 'native-event-vue'
+import { NativeEventVue, DebugLogLevel } from 'native-event-vue'
 import { useDragDirective } from './drag'
 import { useDropDirective } from './drop'
 
@@ -13,7 +13,7 @@ export default {
      * setup native-event-vue
      */
     app.use(NativeEventVue, {
-      debugLog: opts.debugLog,
+      debugLogLevel: opts.debugLog ? DebugLogLevel.Info : DebugLogLevel.Error,
       propNamePrefix: constants.eventPropNamePrefix,
     })
 

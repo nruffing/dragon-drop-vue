@@ -104,6 +104,6 @@
     "*.{ts,json,vue,css}": "prettier --write"
   },
   "dependencies": {
-    "native-event-vue": "^1.1.0"
+    "native-event-vue": "^1.2.0"
   }
 }

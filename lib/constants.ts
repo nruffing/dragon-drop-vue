@@ -10,7 +10,7 @@ export default {
   defaultOptions: {
     dragDirectiveName: 'drag',
     dropDirectiveName: 'drop',
-    dragOverDebounceMs: 300,
+    dragOverDebounceMs: 500,
     dragOverDebounceMode: DebounceMode.MaximumFrequency,
   } as DragonDropVueOptions,
 }
