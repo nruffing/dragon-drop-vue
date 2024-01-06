@@ -30,22 +30,22 @@ export default defineConfig({
       plugins: [del({ targets: ['dist/dragon.png', 'dist/dragon.svg'], hook: 'generateBundle' })],
     },
   },
-  // test: {
-  //   browser: {
-  //     enabled: true,
-  //     name: 'chrome',
-  //     provider: 'webdriverio',
-  //   },
-  //   coverage: {
-  //     provider: 'istanbul',
-  //     reporter: ['text', 'json', 'html'],
-  //     include: ['lib/**/*.ts'],
-  //     exclude: ['lib/**/*.spec.ts'],
-  //     all: true,
-  //     reportsDirectory: 'coverage-unit',
-  //   },
-  //   typecheck: {
-  //     enabled: true,
-  //   },
-  // },
+  test: {
+    browser: {
+      enabled: true,
+      name: 'chrome',
+      provider: 'webdriverio',
+    },
+    coverage: {
+      provider: 'istanbul',
+      reporter: ['text', 'json', 'html'],
+      include: ['lib/**/*.ts'],
+      exclude: ['lib/**/*.spec.ts'],
+      all: true,
+      reportsDirectory: 'coverage-unit',
+    },
+    typecheck: {
+      enabled: true,
+    },
+  },
 })

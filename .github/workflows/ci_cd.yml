@@ -20,7 +20,7 @@ jobs:
       matrix:
         node-version: [18.x, 20.x, 21.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
-        # browser: [chrome, edge] #, safari, firefox
+        browser: [chrome] #, edge] #, safari, firefox
         # exclude:
         #   - os: ubuntu-latest
         #     browser: edge
@@ -44,7 +44,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'pnpm'
     - run: pnpm run ci-all
-    # - run: pnpm test -- --browser=${{ matrix.browser }}
+    - run: pnpm test -- --browser=${{ matrix.browser }}
 
   ci-test-e2e:
     needs: [ci]
