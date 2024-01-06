@@ -1,5 +1,6 @@
 import type { Component } from 'vue'
 import type { DropEffect } from './htmlHelpers'
+import type { DebounceMode } from 'native-event-vue'
 
 export interface DragonDropVueOptions {
   dragDirectiveName?: string
@@ -10,6 +11,7 @@ export interface DragonDropVueOptions {
   dropClass?: string
   dragOverClass?: string
   dragOverDebounceMs?: number
+  dragOverDebounceMode?: DebounceMode
 }
 
 export interface DragonDropVueDragOptions<T = any> {
@@ -47,6 +49,8 @@ export interface DragonDropVueDragOptions<T = any> {
   onDrop?: (domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDropVueDragOptions<T>, options: DragonDropVueOptions) => boolean | undefined
   dropEffect?: DropEffect
   dragImage?: DragonDropVueDragImageOptions
+  dragOverDebounceMs?: number
+  dragOverDebounceMode?: DebounceMode
 }
 
 export interface DragonDropVueDragImageOptions {
