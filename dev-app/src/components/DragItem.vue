@@ -10,7 +10,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import DragImage from './DragImage.vue'
-import { type DragonDropVueDragOptions, type DragonDropVueOptions } from '../../lib/options'
+import { type DragonDropVueDragOptions, type DragonDropVueOptions } from 'dragon-drop-vue'
 
 export interface DragDataType {
   num: number
@@ -40,3 +40,4 @@ export default defineComponent({
   display: none;
 }
 </style>
+../../../lib/options

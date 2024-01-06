@@ -1,3 +1,4 @@
+import { DebounceMode } from 'native-event-vue'
 import type { DragonDropVueOptions } from './options'
 
 export default {
@@ -9,5 +10,7 @@ export default {
   defaultOptions: {
     dragDirectiveName: 'drag',
     dropDirectiveName: 'drop',
+    dragOverDebounceMs: 500,
+    dragOverDebounceMode: DebounceMode.MaximumFrequency,
   } as DragonDropVueOptions,
 }

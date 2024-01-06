@@ -2,10 +2,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "chrome",
+      "command": "pnpm test",
+      "name": "pnpm test",
       "request": "launch",
-      "name": "Launch attached to chrome",
-      "url": "http://127.0.0.1:5173/"
+      "type": "node-terminal"
     }
   ]
 }

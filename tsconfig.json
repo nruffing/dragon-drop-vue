@@ -1,14 +1,16 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": ["env.d.ts", "lib/**/*", "lib/**/*.vue", "lib/DragonDropVue.ts"],
+  "exclude": ["lib/**/*.spec.ts", "test-util/**/*"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["dev-app/src/*"]
     },
     "declaration": true,
     "outDir": "dist/types",
-    "noEmit": false
+    "noEmit": false,
+    "noImplicitAny": false
   },
   "references": [
     {
