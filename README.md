@@ -164,6 +164,7 @@ function onDragStart(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: Drag
   * Migrate to [`native-event-vue`](https://www.npmjs.com/package/native-event-vue) to manage adding and removing HTML native events to DOM elements and leverage its debouncing capabilities on the `dragover` event.
   * The `dragover` event is now debounced by default and the attached handler will only run at most once every 500ms. The debounce time and debounce mode can be configured on the plugin options.
   * Additional source documentation.
+  * Automated tests
 
 ### v1.2.0
   * Add additional debug logging to track when directive lifecycle hooks fire and DOM state after processing.
