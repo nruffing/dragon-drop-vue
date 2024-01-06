@@ -92,8 +92,8 @@ function onDrop(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDro
 | `dropClass` | `string` or `undefined` | Custom class that will be added to all elements with the drop directive. `ddv-dropzone` is also always added. |
 | `draggingClass` | `string` or `undefined` | Custom class that will be added to the element currently being dragged. `ddv-dragging` is also always added. |
 | `dragOverClass` | `string` or `undefined` | Custom class that will added to the element currently being dragged over. `ddv-ddv-dragging-over` is also always added. |
-| `dragOverDebounceMs` | `number` or `undefined` | Optionally override the debounce period for the `dragover` event. By default, this is set to `500ms`. Setting this to `0` will turn off debouncing of the `dragover` event. |
-| `dragOverDebounceMode` | [`DebounceMode`](https://github.com/nruffing/native-event-vue?tab=readme-ov-file#debounce-mode) or `undefined` | Optionally override the [debounce mode](https://github.com/nruffing/native-event-vue?tab=readme-ov-file#debounce-mode) used to debounce the `dragover` event. By default, `MaximumFrequency` is used and this will debounce the event and only call the vent handler at most once during the debounce timeout. |
+| `dragOverDebounceMs` | `number` or `undefined` | Optionally override the debounce period for the `dragover` event. By default, this is set to `500ms`. Setting this to `0` will turn off debouncing of the `dragover` event. This can also be overridden by passing the same option to the object bound to the drop directive. The directive value will take precedence.  |
+| `dragOverDebounceMode` | [`DebounceMode`](https://github.com/nruffing/native-event-vue?tab=readme-ov-file#debounce-mode) or `undefined` | Optionally override the [debounce mode](https://github.com/nruffing/native-event-vue?tab=readme-ov-file#debounce-mode) used to debounce the `dragover` event. By default, `MaximumFrequency` is used and this will debounce the event and only call the vent handler at most once during the debounce timeout. This can also be overridden by passing the same option to the object bound to the drop directive. The directive value will take precedence. |
 
 ## Directive Options (i.e. DragonDropVueDragOptions)
 
@@ -116,6 +116,8 @@ All event handler properties are of the following type.
 | `onDragEnter` | Drag/drop event handler | `dragenter` event handler |
 | `onDragLeave` | Drag/drop event handler | `dragleave` event handler |
 | `onDrop` | Drag/drop event handler | `drop` event handler |
+| `dragOverDebounceMs` | `number` or `undefined` | Optionally override the debounce period for the `dragover` event. By default, this is set to `500ms`. Setting this to `0` will turn off debouncing of the `dragover` event. This will take precedence over the same option on the plugin options. |
+| `dragOverDebounceMode` | [`DebounceMode`](https://github.com/nruffing/native-event-vue?tab=readme-ov-file#debounce-mode) or `undefined` | Optionally override the [debounce mode](https://github.com/nruffing/native-event-vue?tab=readme-ov-file#debounce-mode) used to debounce the `dragover` event. By default, `MaximumFrequency` is used and this will debounce the event and only call the vent handler at most once during the debounce timeout. This will take precedence over the same option on the plugin options. |
 
 ## Drag Data
 
