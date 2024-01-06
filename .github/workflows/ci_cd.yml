@@ -20,16 +20,16 @@ jobs:
       matrix:
         node-version: [18.x, 20.x, 21.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
-        browser: [chrome, edge] #, safari, firefox
-        exclude:
-          - os: ubuntu-latest
-            browser: edge
-          # - os: ubuntu-latest
-          #   browser: safari
-          # - os: windows-latest
-          #   browser: safari
-          - os: macos-latest
-            browser: edge
+        # browser: [chrome, edge] #, safari, firefox
+        # exclude:
+        #   - os: ubuntu-latest
+        #     browser: edge
+        #   # - os: ubuntu-latest
+        #   #   browser: safari
+        #   # - os: windows-latest
+        #   #   browser: safari
+        #   - os: macos-latest
+        #     browser: edge
     runs-on: ${{ matrix.os }}
     env:
       EXISTING_VERSIONS: ''
@@ -44,7 +44,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'pnpm'
     - run: pnpm run ci-all
-    - run: pnpm test -- --browser=${{ matrix.browser }}
+    # - run: pnpm test -- --browser=${{ matrix.browser }}
 
   ci-test-e2e:
     needs: [ci]

@@ -83,6 +83,7 @@
     "@tsconfig/node18": "^18.2.2",
     "@types/debounce": "^1.2.4",
     "@types/node": "^18.11.9",
+    "@types/uuid": "^9.0.7",
     "@vitejs/plugin-vue": "^4.5.2",
     "@vitest/browser": "^1.1.1",
     "@vue/tsconfig": "^0.5.1",
@@ -94,11 +95,13 @@
     "rollup-plugin-delete": "^2.0.0",
     "tslib": "^2.6.2",
     "typescript": "~5.3.3",
+    "uuid": "^9.0.1",
     "vite": "^5.0.10",
     "vitest": "^1.1.1",
     "vue": "^3.3.13",
     "vue-router": "^4.2.5",
-    "vue-tsc": "^1.8.25"
+    "vue-tsc": "^1.8.25",
+    "webdriverio": "^8.27.0"
   },
   "lint-staged": {
     "*.{ts,json,vue,css}": "prettier --write"
