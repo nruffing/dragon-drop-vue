@@ -1,11 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 export const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView,
+    component: () => import('../views/HomeView.vue'),
+  },
+  {
+    path: '/v-drag',
+    name: 'v-drag',
+    component: () => import('../views/VDrag.vue'),
+  },
+  {
+    path: '/v-drop',
+    name: 'v-drop',
+    component: () => import('../views/VDrop.vue'),
   },
 ]
 

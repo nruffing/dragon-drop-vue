@@ -3,4 +3,14 @@ import App from './App.vue'
 import router from './router'
 import { DragonDropVue } from 'dragon-drop-vue'
 
-createApp(App).use(router).use(DragonDropVue, { debugLog: true }).mount('#app')
+export const options = {
+  debugLog: true,
+  dragClass: 'cy-dragClass',
+  dropClass: 'cy-dropClass',
+  draggingClass: 'cy-draggingClass',
+  dragOverClass: 'cy-dragOverClass',
+}
+
+// todo: test directive name options with vitest?
+
+createApp(App).use(router).use(DragonDropVue, options).mount('#app')
