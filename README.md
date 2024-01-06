@@ -30,10 +30,8 @@ import App from './App.vue'
 import { DragonDropVue } from 'dragon-drop-vue'
 
 const dragonDropOptions = {
-  dragClass: 'custom-draggable',
-  draggingClass: 'custom-dragging',
-  dropClass: 'custom-drop',
-  dragOverClass: 'custom-dragging-over',
+  dragOverDebounceMs: 300,
+  debugLog: true,
 }
 
 createApp(App).use(DragonDropVue, dragonDropOptions)
@@ -87,13 +85,15 @@ function onDrop(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: DragonDro
 
 | Property | Type | Description |
 | --- | --- | --- |
-| `debugLog` | `boolean` or `undefined` | Print additional debugging information to the console. All drag and drop events are printed. |
+| `debugLog` | `boolean` or `undefined` | Print additional debugging information to the console. All drag and drop events are printed. This also enables the `Info` log level of [`native-event-vue`](https://www.npmjs.com/package/native-event-vue). |
 | `dragDirectiveName` | `string` or `undefined` | Optionally specify what to register for the drag directive. By default this is `drag` and the directive would be `v-drag`. |
 | `dropDirectiveName` | `string` or `undefined` | Optionally specify what to register for the drag directive. By default this is `drop` and the directive would be `v-drop`. |
-| `dragClass` | `string` or `undefined` | Custom class that will be added to all elements with the drag directive. |
-| `dropClass` | `string` or `undefined` | Custom class that will be added to all elements with the drop directive. |
-| `draggingClass` | `string` or `undefined` | Custom class that will be added to the element currently being dragged. |
-| `dragOverClass` | `string` or `undefined` | Custom class that will added to the element currently being dragged over. |
+| `dragClass` | `string` or `undefined` | Custom class that will be added to all elements with the drag directive. `ddv-draggable` is also always added. |
+| `dropClass` | `string` or `undefined` | Custom class that will be added to all elements with the drop directive. `ddv-dropzone` is also always added. |
+| `draggingClass` | `string` or `undefined` | Custom class that will be added to the element currently being dragged. `ddv-dragging` is also always added. |
+| `dragOverClass` | `string` or `undefined` | Custom class that will added to the element currently being dragged over. `ddv-ddv-dragging-over` is also always added. |
+| `dragOverDebounceMs` | `number` or `undefined` | Optionally override the debounce period for the `dragover` event. By default, this is set to `500ms`. Setting this to `0` will turn off debouncing of the `dragover` event. |
+| `dragOverDebounceMode` | [`DebounceMode`](https://github.com/nruffing/native-event-vue?tab=readme-ov-file#debounce-mode) or `undefined` | Optionally override the [debounce mode](https://github.com/nruffing/native-event-vue?tab=readme-ov-file#debounce-mode) used to debounce the `dragover` event. By default, `MaximumFrequency` is used and this will debounce the event and only call the vent handler at most once during the debounce timeout. |
 
 ## Directive Options (i.e. DragonDropVueDragOptions)
 
@@ -157,6 +157,11 @@ function onDragStart(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: Drag
 ---
 
 ## Release Notes
+
+### v2.0.0
+  * Migrate to [`native-event-vue`](https://www.npmjs.com/package/native-event-vue) to manage adding and removing HTML native events to DOM elements and leverage its debouncing capabilities on the `dragover` event.
+  * The `dragover` event is now debounced by default and the attached handler will only run at most once every 500ms. The debounce time and debounce mode can be configured on the plugin options.
+  * Additional source documentation.
 
 ### v1.2.0
   * Add additional debug logging to track when directive lifecycle hooks fire and DOM state after processing.
