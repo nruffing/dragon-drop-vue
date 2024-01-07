@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       native-event-vue:
-        specifier: ^1.2.0
-        version: 1.2.0(vue@3.4.3)
+        specifier: ^1.4.0
+        version: 1.4.0(vue@3.4.3)
     devDependencies:
       '@babel/types':
         specifier: ^7.23.6
@@ -3999,8 +3999,8 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  /native-event-vue@1.2.0(vue@3.4.3):
-    resolution: {integrity: sha512-xplNQh02ZQBj2seCBObqHQObqKlTdEj+40dGKTPSoXd91KBxn9S5hB7qDmL7DHaP57DehWe8G6wsrSqQ1cgUeg==}
+  /native-event-vue@1.4.0(vue@3.4.3):
+    resolution: {integrity: sha512-ey7pb8ibkSu+dM/8YxVdzlkipm4QpNRx5w+fcxFdZN5kYg4z3JlejGjeuCY8IPYho6gRQmw7jua5siE3WbbYWA==}
     engines: {node: '>=18'}
     peerDependencies:
       vue: '>=3.3.0'
