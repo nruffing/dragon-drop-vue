@@ -160,6 +160,14 @@ function onDragStart(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: Drag
 
 ## Release Notes
 
+### v2.1.0
+  * Fix for `dragover` event not getting `preventDefault` called on it when debounced to ensure the `drop` event fires.
+  * Update to v1.4.0 of [`native-event-vue`](https://www.npmjs.com/package/native-event-vue)
+  * Do not log updated lifecycle hooks when it did not result in the event handler being attached or detached.
+  * Remove drop handling in beforeMount and updated lifecycle hooks when the bound value changes to `false`
+  * Remove all classes and event handlers instead of just setting the `draggable` attribute to `false` when the drag directive binding is set to `false`
+
+
 ### v2.0.0
   * Migrate to [`native-event-vue`](https://www.npmjs.com/package/native-event-vue) to manage adding and removing HTML native events to DOM elements and leverage its debouncing capabilities on the `dragover` event.
   * The `dragover` event is now debounced by default and the attached handler will only run at most once every 500ms. The debounce time and debounce mode can be configured on the plugin options.

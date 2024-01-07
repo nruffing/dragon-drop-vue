@@ -21,9 +21,15 @@ export function addEventHandler(
   dragOpts: DragonDropVueDragOptions,
   opts: DragonDropVueOptions,
 ) {
-  const debounceMs = eventName === 'dragover' ? dragOpts.dragOverDebounceMs ?? opts.dragOverDebounceMs : undefined
-  const debounceMode = eventName === 'dragover' ? dragOpts.dragOverDebounceMode ?? opts.dragOverDebounceMode : undefined
-  useNativeEvent(domEl, eventName, listener as (ev: Event) => any, undefined, debounceMs, debounceMode)
+  const isDragOver = eventName === 'dragover'
+  const debounceMs = isDragOver ? dragOpts.dragOverDebounceMs ?? opts.dragOverDebounceMs : undefined
+  const debounceMode = isDragOver ? dragOpts.dragOverDebounceMode ?? opts.dragOverDebounceMode : undefined
+  /*
+   * To ensure that the drop event always fires as expected, you should always include a preventDefault() call in the part of your
+   * code which handles the dragover event.
+   * https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/drop_event
+   */
+  useNativeEvent(domEl, eventName, listener as (ev: Event) => any, undefined, debounceMs, debounceMode, false, isDragOver)
   log({ eventName: `addEventHandler | ${eventName}`, domEl, opts })
 }
 
