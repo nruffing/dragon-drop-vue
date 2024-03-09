@@ -160,6 +160,9 @@ function onDragStart(domEl: HTMLElement, dragEvent: DragEvent, dragOptions: Drag
 
 ## Release Notes
 
+### v2.1.1
+  * Rev development dependencies. This addresses the security vulnerabilities reported in package [`ip`](https://github.com/nruffing/dragon-drop-vue/security/dependabot/5).
+
 ### v2.1.0
   * Fix for `dragover` event not getting `preventDefault` called on it when debounced to ensure the `drop` event fires.
   * Update to v1.4.0 of [`native-event-vue`](https://www.npmjs.com/package/native-event-vue)
